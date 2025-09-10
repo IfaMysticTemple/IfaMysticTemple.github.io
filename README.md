@@ -1,448 +1,284 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Ifá Mystic Storage — Landing Page (SwamiG Institute) -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0b0b0f" />
   <meta name="color-scheme" content="dark" />
-  <title>Ifá Mystic Storage — SwamiG Institute | Audio • PDFs • Images • Initiation Resources</title>
-  <meta name="description" content="Central storage for Ifá / Isésé / Orisha study materials by SwamiG Institute — audio teachings, PDFs, images, and initiation resources. Michigan nonprofit — 501(c)(3) recognition pending." />
-  <meta name="generator" content="SwamiGInstitute.com 70-888-Swami" />
-
+  <title>SwamiG Institute 70-888-Swami — Ifá • Isésé • Orisha | Divination, Initiation & Spiritual Education</title>
+  <meta name="description" content="SwamiG Institute offers Ifá / Isésé / Orisha divination, priesthood initiations, rites of passage, and spiritual education. Michigan nonprofit — 501(c)(3) recognition pending." />
   <style>
     :root{
       --bg:#0b0b0f;
-      --panel:#111219;
       --ink:#eaeaf2;
       --muted:#b5b5c4;
       --accent:#bb66ff;
-      --accent-2:#66ffd1;
-      --ring:rgba(187,102,255,0.35);
-      --radius:20px;
-      --shadow:0 10px 30px rgba(0,0,0,.45);
+      --accent-muted:rgba(187,102,255,0.18);
+      --accent-lineage:rgba(102,255,178,.35);
+      --radius:20px
     }
     *{box-sizing:border-box}
-    html,body{scroll-behavior:smooth}
+    html,body{scroll-behavior:smooth;height:100%}
     body{
-      margin:0;
-      font:400 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      background: radial-gradient(1200px 700px at 15% -10%, #1a1622 0%, #0b0b0f 45%) no-repeat fixed;
-      color:var(--ink);
+      margin:0;min-height:100vh;display:flex;flex-direction:column;
+      background:var(--bg);color:var(--ink);
+      font:400 16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif
     }
-    a{color:var(--accent-2);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px}
 
-    /* Top bar */
-    .topbar{
-      display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;
+    /* Top notice */
+    .noticebar{
+      position:relative;width:100%;text-align:center;font-size:12px;color:#d9c6ff;
+      background:rgba(187,102,255,.12);border-bottom:1px solid rgba(187,102,255,.25);padding:6px 12px;
     }
+    .notice-center{display:inline-block}
+    .notice-right{position:absolute;right:12px;top:6px;font-size:12px}
+    .notice-right a{color:#d9c6ff;text-decoration:none}
+    .notice-right a:hover{color:var(--accent)}
+
+    /* Top Cards */
+    .top-cards-wrap{background:rgba(11,11,15,.85);border-bottom:1px solid rgba(255,255,255,.08)}
+    .top-cards{max-width:1100px;margin:0 auto;padding:6px 10px;display:grid;gap:8px}
+    @media(min-width:900px){.top-cards{grid-template-columns:repeat(auto-fit,minmax(90px,1fr))}}
+    @media(max-width:899px){.top-cards{grid-template-columns:1fr 1fr}}
+    .top-card{
+      position:relative;border-radius:10px;padding:6px;border:1px solid rgba(255,255,255,.12);
+      color:var(--ink);background:linear-gradient(145deg,rgba(30,30,40,.95),rgba(18,18,25,.95));
+      box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;cursor:default;
+    }
+    .top-card:hover{transform:translateY(-2px) scale(1.005);border-color:rgba(255,255,255,.22)}
+    .top-card h3{margin:0 0 4px;font:700 11px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    .top-card p{margin:0 0 6px;color:var(--muted);font-size:10px;line-height:1.3}
+
+    /* Accent glows */
+    .top-cards .top-card:nth-child(1):hover{box-shadow:0 0 8px rgba(187,102,255,.55)} /* Mission */
+    .top-cards .top-card:nth-child(2):hover{box-shadow:0 0 8px rgba(187,102,255,.55)}
+    .top-cards .top-card:nth-child(3):hover{box-shadow:0 0 8px rgba(102,187,255,.50)}
+    .top-cards .top-card:nth-child(4):hover{box-shadow:0 0 8px rgba(255,102,187,.50)}
+    .top-cards .top-card:nth-child(5):hover{box-shadow:0 0 8px rgba(187,255,102,.50)}
+    .top-cards .top-card:nth-child(6):hover{box-shadow:0 0 8px var(--accent-lineage)}
+
+    /* Layout + Hero */
+    .wrap{padding:24px 20px}
+    .hero{display:flex;justify-content:center;align-items:center;text-align:center;padding:12px 0}
+    .hero-block{max-width:600px}
     .logo{
-      display:flex;align-items:center;gap:14px
+      max-width:150px;border-radius:50%;overflow:hidden;display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.1);box-shadow:0 0 12px rgba(187,102,255,.30);margin:0 auto 18px;
     }
-    .logo img{width:84px;height:auto;border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.04)}
-    .brand h1{font-size:20px;margin:0 0 4px 0;letter-spacing:.3px}
-    .brand small{color:var(--muted)}
-    .contact{justify-self:end;text-align:right}
-    .contact a{display:inline-block;padding:6px 10px;border:1px solid rgba(255,255,255,.08);border-radius:10px}
-    .paylinks{margin-top:6px;font-size:14px;color:var(--muted)}
-    .paylinks b{color:var(--ink)}
+    .logo img{width:100%;height:auto;border-radius:50%;display:block}
+    h1{margin:0;font-weight:800;font-size:36px;line-height:1.08;letter-spacing:.3px}
+    @media(min-width:960px){h1{font-size:42px}}
+    .tag{color:var(--muted);font-size:15px;margin-top:10px}
+    .badge{margin-top:10px;font-size:13px;color:#f4d3ff}
+    .actions{margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 
-    /* Hero */
-    .hero{
-      margin:28px 0 18px;
-      display:grid;grid-template-columns:1.05fr .95fr;gap:22px
-    }
-    @media (max-width:900px){.hero{grid-template-columns:1fr}}
-    .card{
-      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
-    .card.pad{padding:20px}
-    .glow{box-shadow:0 0 0 2px var(--ring), var(--shadow)}
-    .hero h2{margin:.1rem 0 6px;font-size:28px}
-    .hero p{margin:0;color:var(--muted)}
-    .tagrow{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
-    .tag{font-size:13px;padding:6px 10px;border:1px solid rgba(255,255,255,.1);border-radius:999px;color:var(--muted)}
+    /* Button */
+    .btn{border:0;border-radius:12px;padding:10px 18px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+    .primary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+    @keyframes floatPulse{0%,100%{transform:translateY(0);box-shadow:0 0 6px rgba(187,102,255,.15)}50%{transform:translateY(-4px);box-shadow:0 0 12px rgba(187,102,255,.25)}}
+    .btn.primary.float{animation:floatPulse 6s ease-in-out infinite}
 
-    /* Subtle CTA: Need a divination? (toned down pulse + float) */
-    .cta{
-      position:relative;isolation:isolate;overflow:hidden
+    /* Section: Sound Library */
+    .section{max-width:1100px;margin:28px auto 0}
+    .section-header{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .section-header h2{margin:0;font-size:20px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .filter-btn{
+      font-size:12px;border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--ink);
+      padding:6px 10px;border-radius:999px;cursor:pointer
     }
-    .cta a{
-      display:inline-block;margin-top:10px;
-      padding:10px 14px;border-radius:999px;border:1px dashed rgba(255,255,255,.12);
-      color:var(--muted);text-decoration:none;
-      filter:saturate(.85) brightness(.95);opacity:.8;
-      animation:float 6s ease-in-out infinite, pulse 4.5s ease-in-out infinite;
+    .filter-btn.active{border-color:var(--accent);color:var(--accent)}
+    .audio-grid{display:grid;gap:12px;grid-template-columns:repeat(1,1fr)}
+    @media(min-width:640px){.audio-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:980px){.audio-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:1200px){.audio-grid{grid-template-columns:repeat(4,1fr)}}
+    .audio-card{
+      border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px;
+      background:linear-gradient(145deg,rgba(30,30,40,.95),rgba(18,18,25,.95));
+      box-shadow:0 1px 3px rgba(0,0,0,.25);
     }
-    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(102,255,209,.0)}50%{box-shadow:0 0 0 6px rgba(102,255,209,.06)}}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-    .cta a:hover{opacity:1}
-
-    /* Top cards */
-    .tops{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin:20px 0 6px}
-    @media (max-width:1100px){.tops{grid-template-columns:repeat(3,1fr)}}
-    @media (max-width:720px){.tops{grid-template-columns:repeat(2,1fr)}}
-    .topcard{
-      padding:14px;border-radius:16px;background:var(--panel);
-      border:1px solid rgba(255,255,255,.08);
-      transition:.2s transform ease, .2s border-color ease;
-      min-height:96px;display:flex;flex-direction:column;justify-content:space-between
-    }
-    .topcard:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.18)}
-    .topcard h3{margin:2px 0 4px;font-size:16px}
-    .topcard small{color:var(--muted)}
-
-    /* Storage grid */
-    section h2{font-size:22px;margin:18px 0 10px}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(5,1fr);
-      gap:14px;
-    }
-    @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-    @media (max-width:720px){.grid{grid-template-columns:repeat(1,1fr)}}
-    .item{
-      background:var(--panel);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:16px;padding:12px
-    }
-    .item h4{margin:.2rem 0 .4rem;font-size:15px}
-    .meta{font-size:12px;color:var(--muted);margin-bottom:8px}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{
-      display:inline-flex;align-items:center;gap:8px;
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:12px;padding:8px 10px;font-size:14px;color:var(--ink);text-decoration:none
-    }
-    .btn:hover{border-color:rgba(255,255,255,.24)}
-    audio{width:100%;height:32px;margin:8px 0 2px}
+    .audio-title{margin:0 0 2px;font-size:14px;font-weight:700}
+    .audio-meta{margin:0 0 8px;font-size:12px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+    .badge-cat{border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:2px 6px;font-size:11px}
+    .audio-actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+    .download-link{font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px dotted rgba(255,255,255,.25)}
+    .download-link:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
     /* Footer */
-    footer{
-      margin:30px 0 10px;padding:20px;border-top:1px solid rgba(255,255,255,.08);
-      color:var(--muted);font-size:13px;text-align:center
-    }
-    .whisper{opacity:.35;margin-top:10px;font-size:12px}
+    .footer{max-width:1100px;margin:40px auto 0;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;border-top:1px dashed rgba(255,255,255,.15);padding:16px 20px;color:var(--muted)}
+    .bottom-note{font-size:9px;text-align:center;color:rgba(200,180,255,.12);margin:20px 0 16px}
   </style>
-</head>
-<body>
-  <div class="wrap">
-    <!-- Topbar -->
-    <div class="topbar">
-      <div class="logo">
-        <!-- Full path logo (absolute URL) -->
-        <img src="http://myoracle.itgo.com/SwamiG.gif" alt="SwamiG Institute Logo" />
-        <div class="brand">
-          <h1>SwamiG Institute — Ifá • Isésé • Orisha</h1>
-          <small>70-888-Swami • “Many paths 1 truth” • “We seek no followers”</small>
-        </div>
-      </div>
-      <div></div>
-      <div class="contact">
-        <a href="mailto:AwoSwamiG@gmail.com">AwoSwamiG@gmail.com</a>
-        <div class="paylinks">
-          <b>Pay:</b> <a href="https://www.paypal.com/ncp/payment/5M949GKNMDHJN">PayPal</a> • Cash App <b>$DrSwamiG</b>
-        </div>
-      </div>
-    </div>
-
-    <!-- Hero: Title + Mission (side-by-side) -->
-    <section class="hero">
-      <div class="card pad glow">
-        <h2>Ifá Mystic Storage</h2>
-        <p>Central access to sacred study assets for students and initiates — audio teachings, PDFs, images, and lineage resources organized for quick reference and sharing.</p>
-        <div class="tagrow">
-          <span class="tag">Audio Lectures</span>
-          <span class="tag">Ritual PDFs</span>
-          <span class="tag">Herbal Oracle</span>
-          <span class="tag">Merindilogun</span>
-          <span class="tag">Opele Training</span>
-        </div>
-        <div class="cta">
-          <!-- toned-down, gentle pulse + float -->
-          <a href="#consult">Need a divination?</a>
-        </div>
-      </div>
-
-      <!-- “0-Mission” card -->
-      <div class="card pad" style="background:linear-gradient(180deg,rgba(0,0,0,.20),rgba(0,0,0,.10))">
-        <h2>Mission (0-Card)</h2>
-        <p style="color:var(--muted)">
-          To preserve, teach, and responsibly transmit Ifá / Isésé / Orisha wisdom through practical training modules,
-          rites of passage, and accessible digital libraries that empower seekers to study, practice, and serve.
-        </p>
-      </div>
-    </section>
-
-    <!-- Top Cards (quick links) -->
-    <div class="tops" aria-label="Quick Links">
-      <a class="topcard" href="#audio">
-        <div>
-          <h3>Audio Library</h3>
-          <small>10 curated sound clips to begin</small>
-        </div>
-        <small>MP3 • Commentary</small>
-      </a>
-      <a class="topcard" href="#pdfs">
-        <div>
-          <h3>PDF Vault</h3>
-          <small>Lessons, prayers, assignments</small>
-        </div>
-        <small>Printable</small>
-      </a>
-      <a class="topcard" href="#images">
-        <div>
-          <h3>Image Sets</h3>
-          <small>Herbal Oracle • Diagrams</small>
-        </div>
-        <small>PNG • JPG</small>
-      </a>
-      <a class="topcard" href="https://swamiginstitute.github.io/Lineage/" target="_blank" rel="noopener">
-        <div>
-          <h3>Lineage</h3>
-          <small>Anke-Karade Lineage overview</small>
-        </div>
-        <small>External Link</small>
-      </a>
-      <a class="topcard" href="#initiations">
-        <div>
-          <h3>Orisha Initiations</h3>
-          <small>Overview • Inquiry</small>
-        </div>
-        <small>Contact for details</small>
-      </a>
-    </div>
-
-    <!-- AUDIO LIBRARY (10 clips) -->
-    <section id="audio">
-      <h2>Audio Library (10 clips)</h2>
-      <div class="grid">
-        <!-- NOTE: Replace the full paths below with your actual absolute URLs on GitHub Pages, Drive (public), or your CDN. -->
-        <div class="item">
-          <h4>01 • Opening Prayer (Ifá)</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip01-opening-prayer.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip01-opening-prayer.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip01-opening-prayer.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-01">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>02 • Orientation to Study</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip02-orientation.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip02-orientation.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip02-orientation.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-02">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>03 • Asking Good Questions</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip03-asking-questions.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip03-asking-questions.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip03-asking-questions.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-03">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>04 • Casting Basics</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip04-casting-basics.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip04-casting-basics.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip04-casting-basics.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-04">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>05 • Reading Responses</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip05-reading-responses.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip05-reading-responses.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip05-reading-responses.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-05">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>06 • Ethical Practice</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip06-ethics.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip06-ethics.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip06-ethics.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-06">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>07 • Herbal Oracle Primer</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip07-herbal-oracle.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip07-herbal-oracle.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip07-herbal-oracle.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-07">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>08 • Obi-Pele Overview</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip08-obi-pele.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip08-obi-pele.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip08-obi-pele.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-08">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>09 • Merindilogun Practice</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip09-merindilogun.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip09-merindilogun.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip09-merindilogun.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-09">Transcript</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h4>10 • Closing Prayer & Charge</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/clip10-closing-prayer.mp3</div>
-          <audio controls src="https://swamiginstitute.github.io/media/ifa-mystic/clip10-closing-prayer.mp3"></audio>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/clip10-closing-prayer.mp3" download>Download MP3</a>
-            <a class="btn" href="#transcript-10">Transcript</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PDF VAULT -->
-    <section id="pdfs">
-      <h2>PDF Vault</h2>
-      <div class="grid">
-        <div class="item">
-          <h4>Study Guide: Ifá Mystic Starter</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/ifa-mystic-starter.pdf</div>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/ifa-mystic-starter.pdf" target="_blank" rel="noopener">Open PDF</a>
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/ifa-mystic-starter.pdf" download>Download</a>
-          </div>
-        </div>
-        <div class="item">
-          <h4>Assignment: On the Mat with Opele</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/opele-on-the-mat-assignment.pdf</div>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/opele-on-the-mat-assignment.pdf" target="_blank" rel="noopener">Open PDF</a>
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/opele-on-the-mat-assignment.pdf" download>Download</a>
-          </div>
-        </div>
-        <div class="item">
-          <h4>Merindilogun Certificate Template</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/merindilogun-certificate-template.pdf</div>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/merindilogun-certificate-template.pdf" target="_blank" rel="noopener">Open PDF</a>
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/merindilogun-certificate-template.pdf" download>Download</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- IMAGE SETS -->
-    <section id="images">
-      <h2>Image Sets</h2>
-      <div class="grid">
-        <div class="item">
-          <h4>Herbal Oracle — 14 Plants (Sheet)</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/herbal-oracle-14.png</div>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/herbal-oracle-14.png" target="_blank" rel="noopener">Open Image</a>
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/herbal-oracle-14.png" download>Download</a>
-          </div>
-        </div>
-        <div class="item">
-          <h4>Khemti Tree of Life Diagram</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/khemti-tree-of-life.png</div>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/khemti-tree-of-life.png" target="_blank" rel="noopener">Open Image</a>
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/khemti-tree-of-life.png" download>Download</a>
-          </div>
-        </div>
-        <div class="item">
-          <h4>Lineage Crest (Anke-Karade)</h4>
-          <div class="meta">Full path: https://swamiginstitute.github.io/media/ifa-mystic/anke-karade-crest.png</div>
-          <div class="actions">
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/anke-karade-crest.png" target="_blank" rel="noopener">Open Image</a>
-            <a class="btn" href="https://swamiginstitute.github.io/media/ifa-mystic/anke-karade-crest.png" download>Download</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INITIATIONS -->
-    <section id="initiations">
-      <h2>Orisha Initiations — Overview</h2>
-      <div class="grid">
-        <div class="item">
-          <h4>Inquiry & Readiness</h4>
-          <p class="meta">Begin with divination and orientation. Logistics, offerings, and preparation are determined case-by-case.</p>
-          <div class="actions">
-            <a class="btn" href="#consult">Start Inquiry</a>
-            <a class="btn" href="mailto:AwoSwamiG@gmail.com">Email</a>
-          </div>
-        </div>
-        <div class="item">
-          <h4>Support the Work</h4>
-          <p class="meta">Your generosity sustains training modules, storage, and scholarships.</p>
-          <div class="actions">
-            <a class="btn" href="https://www.paypal.com/ncp/payment/5M949GKNMDHJN">PayPal</a>
-            <a class="btn" href="#pay-cashapp">$DrSwamiG</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONSULT CTA ANCHOR -->
-    <section id="consult" class="card pad" style="margin-top:18px">
-      <h2>Divination & Consults</h2>
-      <p class="meta">Schedule a reading to clarify path, purpose, and next steps. Remote sessions available.</p>
-      <div class="actions">
-        <a class="btn" href="mailto:AwoSwamiG@gmail.com?subject=Divination%20Inquiry">Email for Scheduling</a>
-        <a class="btn" href="https://www.paypal.com/ncp/payment/5M949GKNMDHJN">Honorarium via PayPal</a>
-        <span class="btn" aria-disabled="true">Cash App: $DrSwamiG</span>
-      </div>
-    </section>
-
-    <!-- Bottom Pay Links (as requested: show near top and bottom) -->
-    <section style="margin-top:16px" class="card pad">
-      <h2>Support Ifá Mystic Storage</h2>
-      <p class="meta">Help us maintain and expand this library for students and initiates.</p>
-      <div class="actions">
-        <a class="btn" href="https://www.paypal.com/ncp/payment/5M949GKNMDHJN">PayPal</a>
-        <span class="btn">Cash App: $DrSwamiG</span>
-      </div>
-    </section>
-
-    <footer>
-      © <span id="yr"></span> SwamiG Institute • Michigan nonprofit — 501(c)(3) recognition pending
-      <div class="whisper">supported by Amen (Obara) / Heru (Oyeku)</div>
-    </footer>
-  </div>
 
   <script>
-    // Year
-    document.getElementById('yr').textContent = new Date().getFullYear();
+    function openCalendly(url){
+      if(!window.__calendlyLoaded){
+        const l=document.createElement('link'); l.rel='stylesheet'; l.href='https://assets.calendly.com/assets/external/widget.css';
+        const s=document.createElement('script'); s.async=true; s.src='https://assets.calendly.com/assets/external/widget.js';
+        s.onload=function(){ window.__calendlyLoaded=true; Calendly.initPopupWidget({url}); };
+        document.head.appendChild(l); document.head.appendChild(s);
+      }else{ Calendly.initPopupWidget({url}); }
+      return false;
+    }
 
-    // (Optional) If you later want to lazy-swap .audio sources via data-src:
-    // document.querySelectorAll('audio[data-src]').forEach(a=>{ a.src=a.dataset.src; });
+    // Audio filtering + one-at-a-time playback
+    document.addEventListener('DOMContentLoaded', function(){
+      const buttons = document.querySelectorAll('[data-filter]');
+      const cards = document.querySelectorAll('.audio-card');
+      const audios = document.querySelectorAll('audio');
+
+      audios.forEach(a=>{
+        a.addEventListener('play', ()=>{
+          audios.forEach(b=>{ if(b!==a){ b.pause(); } });
+        });
+      });
+
+      buttons.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          buttons.forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          const cat = btn.dataset.filter;
+          cards.forEach(card=>{
+            const c = card.dataset.category;
+            card.style.display = (cat==='all' || c===cat) ? '' : 'none';
+          });
+        });
+      });
+    });
   </script>
+</head>
+<body>
+  <div class="noticebar">
+    <div class="notice-center">Call <strong>70-888-Swami</strong> • Michigan nonprofit — 501(c)(3) recognition pending</div>
+    <div class="notice-right"><a href="mailto:AwoSwamiG@gmail.com">AwoSwamiG@gmail.com</a></div>
+  </div>
+
+  <!-- Top Cards -->
+  <div class="top-cards-wrap">
+    <div class="top-cards" aria-label="Quick actions">
+      <div class="top-card"><h3>0 — Mission</h3><p>Our guiding vision and purpose</p></div>
+      <div class="top-card"><h3>1 — Divination</h3><p>How to Divine classes w/ assignments</p></div>
+      <div class="top-card"><h3>2 — Ilekes</h3><p>Coursework, rituals, consecrated beads & support</p></div>
+      <div class="top-card"><h3>3 — Warriors</h3><p>È&#7779;ù • Ògún • Ò&#7779;óòsì • Ò&#7779;un</p></div>
+      <div class="top-card"><h3>4 — Hand of Ifá</h3><p>Ìkín consecration / Ì&#7779;&#7865;&#768;&#7779;e</p></div>
+      <div class="top-card"><h3>5 — Orisha Initiations</h3><p>Priesthood pathways & ceremonies</p></div>
+      <div class="top-card">
+        <a href="https://swamiginstitute.github.io/Lineage/" style="text-decoration:none; color:inherit;">
+          <h3>6 — Lineage</h3>
+          <p>Anke–Karade Lineage</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-block">
+        <div class="logo">
+          <!-- Full-path logo -->
+          <img src="https://swamiginstitute.github.io/SwamiG.gif" alt="SwamiG logo" loading="lazy" decoding="async" fetchpriority="high" />
+        </div>
+        <h1>SwamiG Institute</h1>
+        <div class="tag">Ifá • Isésé • Orisha — Spiritual Education, Rites & Divination</div>
+        <div class="badge">Michigan nonprofit • <strong>501(c)(3) recognition pending — $DrSwamiG</strong></div>
+        <div class="actions">
+          <a class="btn primary float" href="#" onclick="return openCalendly('https://calendly.com/awoswamig/30min');">Need a Divination?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sound Library -->
+  <section class="section" id="audio">
+    <div class="section-header">
+      <h2>Sound Library — Teachings, Chants & Practice</h2>
+      <div class="filters" role="tablist" aria-label="Filter audio by category">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter-btn" data-filter="teachings" role="tab" aria-selected="false">Teachings</button>
+        <button class="filter-btn" data-filter="chants" role="tab" aria-selected="false">Chants</button>
+        <button class="filter-btn" data-filter="testimonials" role="tab" aria-selected="false">Testimonials</button>
+        <button class="filter-btn" data-filter="practice" role="tab" aria-selected="false">Practice</button>
+      </div>
+    </div>
+
+    <div class="audio-grid">
+      <!-- 1 -->
+      <div class="audio-card" data-category="teachings">
+        <h3 class="audio-title">01 — Ifá Orientation (Intro)</h3>
+        <div class="audio-meta"><span class="badge-cat">Teachings</span><span>~6:20</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio1.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio1.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 2 -->
+      <div class="audio-card" data-category="teachings">
+        <h3 class="audio-title">02 — Asking Questions for Divination</h3>
+        <div class="audio-meta"><span class="badge-cat">Teachings</span><span>~7:15</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio2.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio2.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 3 -->
+      <div class="audio-card" data-category="teachings">
+        <h3 class="audio-title">03 — Casting & Response Basics</h3>
+        <div class="audio-meta"><span class="badge-cat">Teachings</span><span>~8:40</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio3.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio3.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 4 -->
+      <div class="audio-card" data-category="chants">
+        <h3 class="audio-title">04 — Morning Chant (È&#7779;ù Invocation)</h3>
+        <div class="audio-meta"><span class="badge-cat">Chants</span><span>~3:05</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio4.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio4.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 5 -->
+      <div class="audio-card" data-category="chants">
+        <h3 class="audio-title">05 — Evening Chant (Ò&#7779;un Blessing)</h3>
+        <div class="audio-meta"><span class="badge-cat">Chants</span><span>~2:42</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio5.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio5.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 6 -->
+      <div class="audio-card" data-category="practice">
+        <h3 class="audio-title">06 — Guided Practice: Centering Breath</h3>
+        <div class="audio-meta"><span class="badge-cat">Practice</span><span>~5:10</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio6.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio6.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 7 -->
+      <div class="audio-card" data-category="practice">
+        <h3 class="audio-title">07 — Guided Practice: Casting Rhythm</h3>
+        <div class="audio-meta"><span class="badge-cat">Practice</span><span>~4:20</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio7.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio7.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 8 -->
+      <div class="audio-card" data-category="testimonials">
+        <h3 class="audio-title">08 — Testimonial: New Student Experience</h3>
+        <div class="audio-meta"><span class="badge-cat">Testimonials</span><span>~2:55</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio8.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio8.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 9 -->
+      <div class="audio-card" data-category="testimonials">
+        <h3 class="audio-title">09 — Testimonial: Initiation Journey</h3>
+        <div class="audio-meta"><span class="badge-cat">Testimonials</span><span>~3:30</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio9.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio9.mp3" download>Download MP3</a></div>
+      </div>
+      <!-- 10 -->
+      <div class="audio-card" data-category="teachings">
+        <h3 class="audio-title">10 — Ethics & Responsibility in Divination</h3>
+        <div class="audio-meta"><span class="badge-cat">Teachings</span><span>~6:05</span></div>
+        <audio controls preload="none"><source src="https://swamiginstitute.github.io/audio10.mp3" type="audio/mpeg" /></audio>
+        <div class="audio-actions"><a class="download-link" href="https://swamiginstitute.github.io/audio10.mp3" download>Download MP3</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>©2025 SwamiG Institute</div>
+    <div>$DrSwamiG • <a class="download-link" href="https://www.paypal.com/ncp/payment/5M949GKNMDHJN" target="_blank" rel="noopener">Donate via PayPal</a></div>
+  </div>
+  <div class="bottom-note">supported by Amen(Obara)/Heru(Oyeku)</div>
 </body>
 </html>
