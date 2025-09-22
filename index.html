@@ -1,1 +1,214 @@
-Ifa Mystic Temple of Osa Otura Landing Page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Private Image Vote — Odu Preview</title>
+<meta name="color-scheme" content="dark light" />
+<style>
+  :root{
+    --bg:#0b0b0f; --ink:#eaeaf2; --muted:#b7b7c6; --accent:#bb66ff; --ok:#4caf50;
+    --card:#14141c; --ring:rgba(187,102,255,.35);
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f6f6fb; --ink:#1b1b25; --muted:#5a5a6a; --card:#ffffff; --ring:rgba(98,0,238,.18); }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--ink);}
+  .wrap{max-width:1000px; margin:0 auto; padding:24px;}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px;}
+  h1{font-size:22px; margin:0}
+  .muted{color:var(--muted); font-size:14px}
+  .grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;}
+  @media (max-width:720px){ .grid{grid-template-columns:1fr} }
+  .card{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.16);}
+  .card img{display:block; width:100%; height:280px; object-fit:cover; background:#000;}
+  .card .body{padding:12px 12px 14px}
+  .title{font-weight:700; margin:2px 0 8px}
+  .row{display:flex; gap:10px; align-items:center; justify-content:space-between}
+  button{appearance:none; border:1px solid var(--ring); background:transparent; color:var(--ink); padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:600}
+  button:hover{box-shadow:0 0 0 4px var(--ring)}
+  button[disabled]{opacity:.55; cursor:not-allowed}
+  .bar{height:10px; background:linear-gradient(90deg, var(--accent), var(--ok)); border-radius:999px; width:0%}
+  .bar-wrap{background:rgba(255,255,255,.12); border-radius:999px; overflow:hidden; height:10px; flex:1}
+  .stats{display:flex; gap:10px; align-items:center; margin-top:8px; font-variant-numeric:tabular-nums}
+  .totals{margin-top:6px; font-size:13px; color:var(--muted)}
+  .top-actions{display:flex; gap:10px; align-items:center}
+  .pill{font-size:13px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1)}
+  .gate{position:fixed; inset:0; display:grid; place-items:center; backdrop-filter:blur(8px); background:rgba(0,0,0,.45); z-index:50}
+  .sheet{width:min(480px,92vw); padding:20px; border-radius:16px; background:var(--card); border:1px solid rgba(255,255,255,.12); box-shadow:0 8px 40px rgba(0,0,0,.35)}
+  .sheet h2{margin:0 0 6px}
+  .field{display:flex; gap:8px; margin-top:10px}
+  input[type="password"]{flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.18); background:transparent; color:var(--ink)}
+  .err{color:#ff7a7a; font-size:13px; margin-top:8px; min-height:18px}
+  .note{font-size:13px; color:var(--muted)}
+  footer{margin-top:20px; color:var(--muted); font-size:13px; text-align:center}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Image Voting Preview — Osa Otura</h1>
+        <div class="muted">Choose your favorite. One vote per device. Results update live.</div>
+      </div>
+      <div class="top-actions">
+        <span id="votedState" class="pill">Status: can vote</span>
+        <button id="toggleResults">Show Results</button>
+        <button id="resetLocal" title="Clear this device's vote only">Clear This Device</button>
+      </div>
+    </header>
+
+    <section id="gallery" class="grid" aria-live="polite"></section>
+    <div class="totals" id="totals">Total votes: 0</div>
+
+    <footer>© <span id="yr"></span> SwamiG Institute • Simple client-side poll</footer>
+  </div>
+
+  <!-- Password Gate -->
+  <div id="gate" class="gate" aria-modal="true" role="dialog">
+    <div class="sheet">
+      <h2>Enter Access Password</h2>
+      <div class="note">Private preview for voting. Please enter the passcode.</div>
+      <div class="field">
+        <input id="pw" type="password" placeholder="Password" autocomplete="current-password" />
+        <button id="enterBtn">Enter</button>
+      </div>
+      <div id="err" class="err"></div>
+      <div class="note">Change the passcode in the code (constant <code>PASSWORD</code>).</div>
+    </div>
+  </div>
+
+<script>
+/* ---------------------- CONFIGURE HERE ---------------------- */
+const PASSWORD = "Koleoso"; // ? change if desired
+
+const IMAGES = [
+  // Your two supplied files:
+  { id:"osa1", title:"Osa Otura — Layout A", src:"Osa Otura Logo 1.png", alt:"Osa Otura layout A" },
+  { id:"osa2", title:"Osa Otura — Layout B", src:"temple logo 2.jpg",   alt:"Osa Otura layout B" },
+  // Add two more when ready (replace the filenames & titles):
+  { id:"img3", title:"Candidate 3", src:"image3.jpg", alt:"Third candidate" },
+  { id:"img4", title:"Candidate 4", src:"image4.jpg", alt:"Fourth candidate" },
+];
+/* ------------------------------------------------------------ */
+
+const STORAGE_KEY = "imageVote_results_v1";
+const VOTE_FLAG   = "imageVote_hasVoted_v1";
+const AUTH_FLAG   = "imageVote_authed_v1";
+const gallery = document.getElementById("gallery");
+const totalsEl = document.getElementById("totals");
+const votedState = document.getElementById("votedState");
+const toggleResultsBtn = document.getElementById("toggleResults");
+const resetLocalBtn = document.getElementById("resetLocal");
+const gate = document.getElementById("gate");
+const pwInput = document.getElementById("pw");
+const enterBtn = document.getElementById("enterBtn");
+const errEl = document.getElementById("err");
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+function getResults(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw){
+      const init = Object.fromEntries(IMAGES.map(i=>[i.id,0]));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(init));
+      return init;
+    }
+    const parsed = JSON.parse(raw);
+    for(const img of IMAGES){ if(!(img.id in parsed)) parsed[img.id]=0; }
+    return parsed;
+  }catch(e){
+    return Object.fromEntries(IMAGES.map(i=>[i.id,0]));
+  }
+}
+function setResults(obj){ localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
+function hasVoted(){ return localStorage.getItem(VOTE_FLAG)==="yes"; }
+function markVoted(){ localStorage.setItem(VOTE_FLAG,"yes"); }
+
+function render(showResults=false){
+  const res = getResults();
+  const total = Object.values(res).reduce((a,b)=>a+b,0);
+  gallery.innerHTML = "";
+  IMAGES.forEach(img=>{
+    const count = res[img.id]||0;
+    const pct = total>0 ? Math.round((count/total)*100) : 0;
+    const card = document.createElement("article");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${img.src}" alt="${img.alt||img.title}"
+           onerror="this.style.opacity=.25; this.alt='(missing image)';" />
+      <div class="body">
+        <div class="title">${img.title}</div>
+        <div class="row">
+          <button data-id="${img.id}" ${hasVoted() ? "disabled": ""} aria-label="Vote for ${img.title}">Vote</button>
+          <div class="stats" style="${showResults?'':'display:none'}">
+            <strong class="pct">${pct}%</strong>
+            <div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div>
+            <span class="count" title="votes">${count}</span>
+          </div>
+        </div>
+      </div>
+    `;
+    gallery.appendChild(card);
+  });
+
+  totalsEl.textContent = `Total votes: ${total}`;
+  votedState.textContent = `Status: ${hasVoted() ? "already voted" : "can vote"}`;
+  document.querySelectorAll(".stats").forEach(s=>{ s.style.display = showResults ? "flex" : "none"; });
+}
+
+function voteFor(id){
+  if(hasVoted()) return;
+  const res = getResults();
+  if(!(id in res)) res[id]=0;
+  res[id]+=1;
+  setResults(res);
+  markVoted();
+  render(currentlyShowingResults);
+}
+
+let currentlyShowingResults = false;
+document.getElementById("gallery").addEventListener("click", (e)=>{
+  const btn = e.target.closest("button[data-id]");
+  if(!btn) return;
+  voteFor(btn.getAttribute("data-id"));
+});
+toggleResultsBtn.addEventListener("click", ()=>{
+  currentlyShowingResults = !currentlyShowingResults;
+  toggleResultsBtn.textContent = currentlyShowingResults ? "Hide Results" : "Show Results";
+  render(currentlyShowingResults);
+});
+resetLocalBtn.addEventListener("click", ()=>{
+  localStorage.removeItem(VOTE_FLAG);
+  render(currentlyShowingResults);
+});
+
+// ---- Password gate ----
+function unlock(){
+  sessionStorage.setItem(AUTH_FLAG,"ok");
+  gate.style.display = "none";
+  render(false);
+  pwInput.value = "";
+  errEl.textContent = "";
+  pwInput.setAttribute("aria-invalid","false");
+}
+function checkAuth(){
+  if(sessionStorage.getItem(AUTH_FLAG)==="ok"){
+    gate.style.display = "none";
+    render(false);
+  }else{
+    gate.style.display = "grid";
+    pwInput.focus();
+  }
+}
+document.getElementById("enterBtn").addEventListener("click", ()=>{
+  if(pwInput.value === PASSWORD){ unlock(); }
+  else{ errEl.textContent = "Incorrect password."; pwInput.setAttribute("aria-invalid","true"); }
+});
+pwInput.addEventListener("keydown", (e)=>{ if(e.key==="Enter") document.getElementById("enterBtn").click(); });
+
+checkAuth();
+</script>
+</body>
+</html>
