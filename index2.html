@@ -50,10 +50,10 @@
     <header>
       <div>
         <h1>Image Voting Preview — Osa Otura</h1>
-        <div class="muted">Choose your favorite. Two votes per device. Results update live.</div>
+        <div class="muted">Choose your favorite. <strong>Two votes per device.</strong> Results update live.</div>
       </div>
       <div class="top-actions">
-        <span id="votedState" class="pill">Status: can vote</span>
+        <span id="votedState" class="pill">Status: can vote (2 left)</span>
         <button id="toggleResults">Show Results</button>
         <button id="resetLocal" title="Clear this device's vote only">Clear This Device</button>
       </div>
@@ -81,7 +81,7 @@
 
 <script>
 /* ---------------------- CONFIGURE HERE ---------------------- */
-const PASSWORD = "Omitosin"; //  change if desired
+const PASSWORD = "Omitosin"; // change if desired
 
 const IMAGES = [
   // Your two supplied files:
@@ -93,9 +93,11 @@ const IMAGES = [
 ];
 /* ------------------------------------------------------------ */
 
-const STORAGE_KEY = "imageVote_results_v1";
-const VOTE_FLAG   = "imageVote_hasVoted_v1";
-const AUTH_FLAG   = "imageVote_authed_v1";
+const STORAGE_KEY   = "imageVote_results_v1";
+const AUTH_FLAG     = "imageVote_authed_v1";
+const VOTES_USED_K  = "imageVote_votesUsed_v1";   // how many votes this device already cast
+const MAX_VOTES     = 2;
+
 const gallery = document.getElementById("gallery");
 const totalsEl = document.getElementById("totals");
 const votedState = document.getElementById("votedState");
@@ -107,6 +109,7 @@ const enterBtn = document.getElementById("enterBtn");
 const errEl = document.getElementById("err");
 document.getElementById("yr").textContent = new Date().getFullYear();
 
+/* ----- Results store ----- */
 function getResults(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -123,9 +126,19 @@ function getResults(){
   }
 }
 function setResults(obj){ localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
-function hasVoted(){ return localStorage.getItem(VOTE_FLAG)==="yes"; }
-function markVoted(){ localStorage.setItem(VOTE_FLAG,"yes"); }
 
+/* ----- Vote counter (per device) ----- */
+function getVotesUsed(){
+  const n = parseInt(localStorage.getItem(VOTES_USED_K) || "0", 10);
+  return isNaN(n) ? 0 : n;
+}
+function setVotesUsed(n){
+  localStorage.setItem(VOTES_USED_K, String(n));
+}
+function canVote(){ return getVotesUsed() < MAX_VOTES; }
+function votesLeft(){ return Math.max(0, MAX_VOTES - getVotesUsed()); }
+
+/* ----- Render ----- */
 function render(showResults=false){
   const res = getResults();
   const total = Object.values(res).reduce((a,b)=>a+b,0);
@@ -141,7 +154,7 @@ function render(showResults=false){
       <div class="body">
         <div class="title">${img.title}</div>
         <div class="row">
-          <button data-id="${img.id}" ${hasVoted() ? "disabled": ""} aria-label="Vote for ${img.title}">Vote</button>
+          <button data-id="${img.id}" ${canVote() ? "" : "disabled"} aria-label="Vote for ${img.title}">Vote</button>
           <div class="stats" style="${showResults?'':'display:none'}">
             <strong class="pct">${pct}%</strong>
             <div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div>
@@ -154,37 +167,47 @@ function render(showResults=false){
   });
 
   totalsEl.textContent = `Total votes: ${total}`;
-  votedState.textContent = `Status: ${hasVoted() ? "already voted" : "can vote"}`;
+  votedState.textContent = canVote()
+    ? `Status: can vote (${votesLeft()} left)`
+    : `Status: done (0 left)`;
   document.querySelectorAll(".stats").forEach(s=>{ s.style.display = showResults ? "flex" : "none"; });
 }
 
+/* ----- Voting ----- */
 function voteFor(id){
-  if(hasVoted()) return;
+  if(!canVote()) return;
   const res = getResults();
   if(!(id in res)) res[id]=0;
-  res[id]+=2;
+  res[id]+=1; // one vote per click
   setResults(res);
-  markVoted();
+  setVotesUsed(getVotesUsed()+1);
   render(currentlyShowingResults);
 }
 
+/* ----- UI Events ----- */
 let currentlyShowingResults = false;
+
 document.getElementById("gallery").addEventListener("click", (e)=>{
   const btn = e.target.closest("button[data-id]");
   if(!btn) return;
   voteFor(btn.getAttribute("data-id"));
 });
+
 toggleResultsBtn.addEventListener("click", ()=>{
   currentlyShowingResults = !currentlyShowingResults;
   toggleResultsBtn.textContent = currentlyShowingResults ? "Hide Results" : "Show Results";
   render(currentlyShowingResults);
 });
+
 resetLocalBtn.addEventListener("click", ()=>{
-  localStorage.removeItem(VOTE_FLAG);
+  // Reset only this device's vote allowance; do not clear tallied results
+  localStorage.removeItem(VOTES_USED_K);
+  // Also remove any legacy single-vote flag if it existed
+  localStorage.removeItem("imageVote_hasVoted_v1");
   render(currentlyShowingResults);
 });
 
-// ---- Password gate ----
+/* ----- Password gate ----- */
 function unlock(){
   sessionStorage.setItem(AUTH_FLAG,"ok");
   gate.style.display = "none";
