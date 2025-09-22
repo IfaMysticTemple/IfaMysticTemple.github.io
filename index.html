@@ -50,7 +50,7 @@
     <header>
       <div>
         <h1>Image Voting Preview — Osa Otura</h1>
-        <div class="muted">Choose your favorite. One vote per device. Results update live.</div>
+        <div class="muted">Choose your favorite. Two votes per device. Results update live.</div>
       </div>
       <div class="top-actions">
         <span id="votedState" class="pill">Status: can vote</span>
@@ -88,8 +88,8 @@ const IMAGES = [
   { id:"osa1", title:"Osa Otura — Layout A", src:"Osa Otura Logo 1.png", alt:"Osa Otura layout A" },
   { id:"osa2", title:"Osa Otura — Layout B", src:"temple logo 2.jpg",   alt:"Osa Otura layout B" },
   // Add two more when ready (replace the filenames & titles):
-  { id:"img3", title:"Candidate 3", src:"image3.jpg", alt:"Third candidate" },
-  { id:"img4", title:"Candidate 4", src:"image4.jpg", alt:"Fourth candidate" },
+  { id:"1", title:"Candidate 3", src:"1.jpg", alt:"Third candidate" },
+  { id:"2", title:"Candidate 4", src:"2.jpg", alt:"Fourth candidate" },
 ];
 /* ------------------------------------------------------------ */
 
@@ -162,7 +162,7 @@ function voteFor(id){
   if(hasVoted()) return;
   const res = getResults();
   if(!(id in res)) res[id]=0;
-  res[id]+=1;
+  res[id]+=2;
   setResults(res);
   markVoted();
   render(currentlyShowingResults);
