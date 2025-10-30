@@ -1,1 +1,1 @@
-This repo is for Awo Falanlu meditations
+This repo includes Awo Falanlu meditations
