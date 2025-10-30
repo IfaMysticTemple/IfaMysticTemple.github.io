@@ -8,62 +8,62 @@
   <title>Ifa Mystic Temple — Ọ̀rúnmìlà | Divination • Initiation • Education</title>
   <meta name="description" content="Ifa Mystic Temple offers traditional Ifá and Òrìṣà divination, initiations, and sacred teachings. Connect with the wisdom of Ọ̀rúnmìlà and the ancestral path." />
   <style>
-    :root {
+    :root{
       --bg:#0b0b0f;
       --ink:#f4f4fa;
       --muted:#b5b5c4;
       --accent:#bb66ff;
       --accent-muted:rgba(187,102,255,0.18);
     }
-    body {
+    body{
       margin:0;
       font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
       background:var(--bg);
       color:var(--ink);
       text-align:center;
     }
-    header {
+    header{
       padding:60px 20px 40px;
       background:radial-gradient(circle at top,var(--accent-muted),transparent 70%);
     }
-    header img {
+    header img{
       width:120px;
       height:auto;
       border-radius:50%;
       box-shadow:0 0 20px rgba(187,102,255,.5);
     }
-    h1 {
+    h1{
       font-size:2.3em;
       margin:20px 0 10px;
       letter-spacing:1px;
     }
-    h2 {
+    h2{
       font-weight:400;
       color:var(--muted);
       font-size:1.1em;
     }
-    section {
+    section{
       max-width:800px;
       margin:40px auto;
       padding:0 20px;
       line-height:1.7;
       font-size:1.05em;
     }
-    footer {
+    footer{
       border-top:1px solid rgba(255,255,255,0.1);
       margin-top:60px;
       padding:20px;
       font-size:0.9em;
       color:var(--muted);
     }
-    a {
+    a{
       color:var(--accent);
       text-decoration:none;
     }
-    a:hover {
+    a:hover{
       text-decoration:underline;
     }
-    button {
+    button{
       background:var(--accent);
       border:none;
       color:white;
@@ -75,35 +75,8 @@
       box-shadow:0 0 15px rgba(187,102,255,0.3);
       transition:0.3s;
     }
-    button:hover {
+    button:hover{
       background:#a14fff;
-    }
-    form {
-      margin-top:40px;
-      background:rgba(255,255,255,0.03);
-      padding:25px;
-      border-radius:14px;
-      text-align:left;
-    }
-    label {
-      display:block;
-      margin-top:15px;
-      font-weight:600;
-      color:var(--muted);
-    }
-    input, textarea {
-      width:100%;
-      margin-top:6px;
-      padding:10px;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,0.15);
-      background:#1a1a1f;
-      color:var(--ink);
-      font-size:1em;
-    }
-    textarea {
-      height:120px;
-      resize:vertical;
     }
   </style>
 </head>
@@ -119,52 +92,19 @@
       Welcome to <b>Ifa Mystic Temple</b>
     </p>
     <p>
-      Our mission is to help human beings self-realize their innate gifts and blessings through self-knowledge and recognizing their universal truth. 
-      Ifa Mystic Temple of Osa Otura, Door of Truth, will be open to anyone willing to break the psychological programming of slavery 
+      Our mission is to help human beings self-realize their innate gifts and blessings through self-knowledge and recognizing their universal truth.
+      Ifa Mystic Temple of Osa Otura, Door of Truth, will be open to anyone willing to break the psychological programming of slavery
       since they incarnated on this plane of life and submit to their universal truth and path of spiritual liberation.
     </p>
 
-    <button onclick="window.location.href='mailto:info@ifamystictemple.com'">Email Us Directly</button>
-
-    <form id="question-form">
-      <h3 style="text-align:center;margin-top:20px;">Ask a Question</h3>
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="question">Your Question</label>
-      <textarea id="question" name="question" required></textarea>
-
-      <button type="submit">Send Question</button>
-      <p id="response" style="text-align:center;margin-top:15px;"></p>
-    </form>
+    <button onclick="window.location.href='mailto:info@ifamystictemple.com'">
+      Contact Us
+    </button>
   </section>
 
   <footer>
     © <script>document.write(new Date().getFullYear());</script> Ifa Mystic Temple · 
     <a href="mailto:info@ifamystictemple.com">info@ifamystictemple.com</a>
   </footer>
-
-  <script>
-    // Simple mailto fallback (for now, before backend integration)
-    document.getElementById('question-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const question = document.getElementById('question').value;
-
-      const subject = encodeURIComponent("Question from " + name);
-      const body = encodeURIComponent(
-        "Name: " + name + "\n" +
-        "Email: " + email + "\n\n" +
-        "Question:\n" + question
-      );
-
-      window.location.href = "mailto:info@ifamystictemple.com?subject=" + subject + "&body=" + body;
-      document.getElementById('response').innerText = "Opening your email app...";
-    });
-  </script>
 </body>
 </html>
