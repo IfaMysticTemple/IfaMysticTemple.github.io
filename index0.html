@@ -37,23 +37,10 @@
       z-index:1;
     }
     header{
-      padding:40px 20px 40px;
-      position:relative;
-    }
-    header img{
-      width:120px;
-      height:auto;
-      border-radius:50%;
-      box-shadow:0 0 25px rgba(187,102,255,.5);
-      background:rgba(0,0,0,0.4);
-      position:absolute;
-      top:-15px; /* lowered another 1/4 inch */
-      left:50%;
-      transform:translateX(-50%);
+      padding:60px 20px 20px;
     }
     h1{
       font-size:2.3em;
-      margin-top:60px;
       margin-bottom:10px;
       letter-spacing:1px;
     }
@@ -65,7 +52,7 @@
     section{
       max-width:800px;
       margin:40px auto;
-      padding:30px 20px;
+      padding:30px 20px 60px;
       line-height:1.7;
       font-size:1.05em;
       background:rgba(0,0,0,0.45);
@@ -102,11 +89,19 @@
     button:hover{
       background:#a14fff;
     }
+    .logo-below{
+      display:block;
+      margin:40px auto 0;
+      width:120px;
+      height:auto;
+      border-radius:50%;
+      background:rgba(0,0,0,0.4);
+      box-shadow:0 0 25px rgba(187,102,255,.5);
+    }
   </style>
 </head>
 <body>
   <header>
-    <img src="Osa%20Otura%20Logo%201.png" alt="Ifa Mystic Temple Logo">
     <h1>Ifa Mystic Temple</h1>
     <h2>Ọ̀rúnmìlà • Ìṣẹ̀ṣe • Òrìṣà | Divination • Initiation • Education</h2>
   </header>
@@ -124,6 +119,9 @@
     <button onclick="window.location.href='mailto:info@ifamystictemple.com'">
       Contact Us
     </button>
+
+    <!-- Logo moved below the button -->
+    <img src="Osa%20Otura%20Logo%201.png" alt="Ifa Mystic Temple Logo" class="logo-below">
   </section>
 
   <footer>
