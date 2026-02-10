@@ -1,0 +1,1126 @@
+<!-- =========================================================
+SGI — 16-Week Course Map (Single-File HTML)
+Theme: 3 Pillars + 2 Principles
+Pillars:
+  1) Radical Devotion (Auset)
+  2) Words of Power (Sekert)
+  3) Infinite Wisdom (Tehuti)
+Principles:
+  - Extending Royal Legacy
+  - Standing on the Shoulders of Enlightened Ancestors
+
+FILE: sgi-16week-3pillars.html
+NOTES:
+- Put this file in the SAME folder as: SwamiG.gif  (optional SGI logo)
+- Fully static (GitHub Pages / Cloudflare Pages friendly)
+- Progress + checkboxes save locally (localStorage)
+========================================================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0b0b0f" />
+  <title>SGI — 16-Week Course | 3 Pillars + 2 Principles</title>
+  <meta name="description" content="SwamiG Institute (SGI) 16-week course mapped to the 3 Pillars: Radical Devotion (Auset), Words of Power (Sekert), Infinite Wisdom (Tehuti) + 2 Principles: Extending Royal Legacy, Standing on the Shoulders of Enlightened Ancestors." />
+
+  <style>
+    :root{
+      --bg:#0b0b0f;
+      --card:#12121a;
+      --card2:#161624;
+      --ink:#f2f3f7;
+      --muted:#b7b9c6;
+      --line:rgba(255,255,255,.10);
+      --accent:#8b5cf6; /* purple */
+      --gold:#f6c453;
+      --good:#34d399;
+      --warn:#fb7185;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 500px at 20% 0%, rgba(139,92,246,.35), transparent 55%),
+        radial-gradient(700px 420px at 80% 10%, rgba(246,196,83,.18), transparent 55%),
+        radial-gradient(900px 520px at 50% 100%, rgba(52,211,153,.14), transparent 60%),
+        var(--bg);
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 70px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 16px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      position:sticky; top:10px; z-index:5;
+      backdrop-filter: blur(10px);
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:240px}
+    .logo{
+      width:44px;height:44px;border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      display:grid; place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    .brand h1{font-size:14px;margin:0;letter-spacing:.6px;text-transform:uppercase}
+    .brand .sub{font-size:12px;color:var(--muted);margin:2px 0 0}
+    .pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      text-decoration:none;
+      font-size:12px; color:var(--ink);
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pill:hover{transform:translateY(-1px); background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18)}
+    .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--accent); box-shadow:0 0 0 3px rgba(139,92,246,.18)}
+    .pill.gold .dot{background:var(--gold); box-shadow:0 0 0 3px rgba(246,196,83,.18)}
+    .pill.green .dot{background:var(--good); box-shadow:0 0 0 3px rgba(52,211,153,.18)}
+    .pill.red .dot{background:var(--warn); box-shadow:0 0 0 3px rgba(251,113,133,.18)}
+    .hero{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap:16px;
+    }
+    @media (max-width:900px){ .hero{grid-template-columns:1fr} .brand{min-width:0}}
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .title{
+      font-size:26px;margin:0 0 6px; line-height:1.15;
+      letter-spacing:.2px;
+    }
+    .lede{color:var(--muted);margin:0 0 12px; font-size:14px; line-height:1.6}
+    .tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .tag{
+      font-size:12px;color:var(--muted);
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+    }
+    .mini{
+      display:grid; gap:12px;
+    }
+    .kpi{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.22);
+    }
+    .kpi .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;margin:0}
+    .kpi .v{font-size:16px;margin:6px 0 0}
+    .kpi strong{color:var(--ink)}
+    .section{
+      margin-top:18px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+    }
+    .sectionHead{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      padding:16px 16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-bottom:1px solid var(--line);
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+    .sectionHead p{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55}
+    .progressRow{
+      display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; align-items:center;
+      min-width:240px;
+    }
+    .bar{
+      width:180px; height:10px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .bar > i{
+      display:block;height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--accent), var(--gold));
+    }
+    .pct{font-size:12px;color:var(--muted);min-width:52px;text-align:right}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:0;
+    }
+
+    details.week{
+      border-top:1px solid var(--line);
+      background:rgba(0,0,0,.14);
+    }
+    details.week[open]{background:rgba(0,0,0,.22)}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .wLeft{display:flex; gap:12px; align-items:flex-start}
+    .badge{
+      width:42px;height:42px;border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      display:grid; place-items:center;
+      font-weight:800;
+    }
+    .wTitle{margin:0;font-size:14px}
+    .wSub{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+    .wRight{
+      display:flex; gap:10px; align-items:center;
+      color:var(--muted); font-size:12px;
+    }
+    .checkMini{
+      display:flex; align-items:center; gap:8px;
+      padding:7px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      user-select:none;
+    }
+    .checkMini input{accent-color:var(--accent)}
+    .content{
+      padding:0 16px 16px;
+    }
+    .cols{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width:900px){ .cols{grid-template-columns:1fr} }
+    .box{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+    .box h4{margin:0 0 6px;font-size:12px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted)}
+    .box ul{margin:0;padding-left:18px;color:var(--ink);font-size:13px;line-height:1.55}
+    .box li{margin:6px 0}
+    .box p{margin:0;color:var(--ink);font-size:13px;line-height:1.55}
+    .muted{color:var(--muted)}
+    .footer{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    @media (max-width:900px){ .footer{grid-template-columns:1fr} }
+
+    .btnRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--ink);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-size:13px;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18)}
+    .btn.danger{border-color:rgba(251,113,133,.35)}
+    .btn.danger:hover{background:rgba(251,113,133,.08)}
+
+    .smallNote{font-size:12px;color:var(--muted);line-height:1.55;margin:10px 0 0}
+    .hr{height:1px;background:var(--line);margin:12px 0}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="brand">
+        <a class="logo" href="https://swamiginstitute.com" target="_blank" rel="noopener" title="Visit SwamiGInstitute.com">
+          <!-- If SwamiG.gif is missing, the fallback text will show -->
+          <img src="SwamiG.gif" alt="SGI Logo" onerror="this.remove(); this.parentElement.textContent='SGI'; this.parentElement.style.fontWeight='800';" />
+        </a>
+        <div>
+          <h1>SwamiG Institute</h1>
+          <div class="sub">16-Week Course • 3 Pillars + 2 Principles</div>
+        </div>
+      </div>
+
+      <div class="pills">
+        <a class="pill" href="#auset"><span class="dot"></span> Auset • Devotion</a>
+        <a class="pill gold" href="#sekert"><span class="dot"></span> Sekert • Words</a>
+        <a class="pill green" href="#tehuti"><span class="dot"></span> Tehuti • Wisdom</a>
+        <a class="pill red" href="#week16"><span class="dot"></span> Week 16 • Legacy</a>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="card">
+        <h2 class="title">SGI 16-Week Course Map</h2>
+        <p class="lede">
+          A disciplined formation cycle built on the <strong>3 Pillars</strong>—<strong>Radical Devotion (Auset)</strong>,
+          <strong>Words of Power (Sekert)</strong>, and <strong>Infinite Wisdom (Tehuti)</strong>—and governed by two principles:
+          <strong>Extending Royal Legacy</strong> and <strong>Standing on the Shoulders of Enlightened Ancestors</strong>.
+        </p>
+        <div class="tags">
+          <span class="tag">Weekly Structure: Inner Work • Outer Expression • Legacy Question</span>
+          <span class="tag">Saved Progress: localStorage (this device)</span>
+          <span class="tag">Use: Public Cohort • Iyawo Track • Priest Refinement</span>
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="expandAllBtn" type="button">Expand All Weeks</button>
+          <button class="btn" id="collapseAllBtn" type="button">Collapse All Weeks</button>
+          <button class="btn danger" id="resetBtn" type="button">Reset All Checkmarks</button>
+        </div>
+        <p class="smallNote">
+          Tip: Each week has a “Completed” checkbox. Mark it when you finish the week’s work. Your progress bar updates automatically.
+        </p>
+      </div>
+
+      <div class="card mini">
+        <div class="kpi">
+          <p class="k">3 Pillars</p>
+          <p class="v"><strong>Auset</strong> • Sekert • Tehuti</p>
+        </div>
+        <div class="kpi">
+          <p class="k">2 Principles</p>
+          <p class="v"><strong>Extending Royal Legacy</strong><br><span class="muted">Standing on Enlightened Ancestors</span></p>
+        </div>
+        <div class="kpi">
+          <p class="k">Course Outcome</p>
+          <p class="v">Disciplined • Clear Speech • Applied Wisdom • Legacy-minded</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: AUSET -->
+    <section class="section" id="auset" data-section="auset">
+      <div class="sectionHead">
+        <div>
+          <h2>Pillar I — Radical Devotion (Auset)</h2>
+          <p>Weeks 1–5 • Alignment • Discipline • Inner Authority</p>
+        </div>
+        <div class="progressRow">
+          <div class="bar" aria-label="Auset progress bar"><i></i></div>
+          <div class="pct" data-pct>0%</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <!-- Week 1 -->
+        <details class="week" data-week="1">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">1</div>
+              <div>
+                <p class="wTitle">Orientation: What Are You Devoted To?</p>
+                <p class="wSub">Devotion vs obedience • Identify false devotions • Begin daily stillness.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini" title="Mark week complete">
+                <input type="checkbox" data-check="week-1" />
+                Completed
+              </label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Devotional inventory: time, energy, habits.</li>
+                  <li>10 minutes daily stillness (same time each day).</li>
+                  <li>Identify “false devotion” patterns (approval, fear, ego, distraction).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Write a one-paragraph “why I’m here” statement.</li>
+                  <li>Choose one daily act that symbolizes devotion (simple + consistent).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>Would my ancestors recognize what I’m devoted to?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 2 -->
+        <details class="week" data-week="2">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">2</div>
+              <div>
+                <p class="wTitle">Discipline as Sacred Technology</p>
+                <p class="wSub">Consistency over motivation • Discipline = freedom • Build your 7-day cycle.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-2" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Create a 7-day discipline cycle (sleep, food, movement, study).</li>
+                  <li>Remove one habit that weakens devotion.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Track your cycle daily (1–2 lines).</li>
+                  <li>Declare one boundary that protects your practice.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>What would change in my lineage if I became consistent?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 3 -->
+        <details class="week" data-week="3">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">3</div>
+              <div>
+                <p class="wTitle">Inner Authority & Self-Sovereignty</p>
+                <p class="wSub">End dependency • Restore inner law • Become accountable to self + ancestors.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-3" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Write a personal code of conduct (5–10 lines).</li>
+                  <li>Identify where authority is misplaced (people, fear, comfort).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Practice one act of self-leadership daily.</li>
+                  <li>Stop one repeating excuse phrase.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>Where have I surrendered my crown?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 4 -->
+        <details class="week" data-week="4">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">4</div>
+              <div>
+                <p class="wTitle">Devotion in Action</p>
+                <p class="wSub">Integrity • Private/public alignment • Devotion becomes behavior.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-4" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Behavioral audit: where do I contradict myself?</li>
+                  <li>Correct one recurring contradiction.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Replace one weak habit with one strong habit.</li>
+                  <li>Do one “quiet discipline” action (no announcement).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>If my descendants copied me, would I be proud?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 5 -->
+        <details class="week" data-week="5">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">5</div>
+              <div>
+                <p class="wTitle">Auset Integration</p>
+                <p class="wSub">Stabilize devotion • Confirm discipline • Prepare speech + wisdom pillars.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-5" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Review weeks 1–4 notes.</li>
+                  <li>Write: “My Devotional Standard” (1 page max).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Share a brief recap (oral or written) with your cohort.</li>
+                  <li>Set 3 non-negotiables for the next 11 weeks.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>What does “Radical Devotion” look like in my daily life?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- SECTION: SEKERT -->
+    <section class="section" id="sekert" data-section="sekert">
+      <div class="sectionHead">
+        <div>
+          <h2>Pillar II — Words of Power (Sekert)</h2>
+          <p>Weeks 6–10 • Speech • Silence • Creative Command</p>
+        </div>
+        <div class="progressRow">
+          <div class="bar"><i></i></div>
+          <div class="pct" data-pct>0%</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <!-- Week 6 -->
+        <details class="week" data-week="6">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">6</div>
+              <div>
+                <p class="wTitle">Speech as Creation</p>
+                <p class="wSub">Words are technology • Prayer/command • Replace careless speech.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-6" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Begin “speech awareness”: catch filler + self-cursing phrases.</li>
+                  <li>Rewrite affirmations with precision.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Speech fast: remove one category (gossip, complaining, doom-talk).</li>
+                  <li>Speak one daily declaration aligned with devotion.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>Do my words build the lineage—or weaken it?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 7 -->
+        <details class="week" data-week="7">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">7</div>
+              <div>
+                <p class="wTitle">Silence, Restraint, Listening</p>
+                <p class="wSub">Silence is power • Listening to ancestors • Restraint as mastery.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-7" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>One weekly silence block (30–60 minutes minimum).</li>
+                  <li>Journal what arises in silence.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Practice “pause before reply” (3 breaths).</li>
+                  <li>Remove one reactive response pattern.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>What truth do I avoid hearing?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 8 -->
+        <details class="week" data-week="8">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">8</div>
+              <div>
+                <p class="wTitle">Writing as Transmission</p>
+                <p class="wSub">Write to preserve • Document the path • Leave records, not rumors.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-8" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Begin your personal SGI text (journal/treatise).</li>
+                  <li>Write 1 page this week (max 500 words if you prefer).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Create a “teach-back” paragraph (what I learned + how I apply it).</li>
+                  <li>Organize notes into headings (future legacy archive).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>What must be written so it can’t be erased?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 9 -->
+        <details class="week" data-week="9">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">9</div>
+              <div>
+                <p class="wTitle">Teaching, Naming, Correction</p>
+                <p class="wSub">Teach responsibly • Correct without cruelty • Truth without ego.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-9" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Identify where your speech harms (tone, sarcasm, dominance).</li>
+                  <li>Define “correction” vs “humiliation.”</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Deliver a short teaching (2–5 minutes or 1 page).</li>
+                  <li>Practice one corrective conversation with composure.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>Does my voice heal—or control?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 10 -->
+        <details class="week" data-week="10">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">10</div>
+              <div>
+                <p class="wTitle">Sekert Integration</p>
+                <p class="wSub">Voice stabilized • Restraint refined • Speech aligned with devotion.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-10" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Review weeks 6–9 notes.</li>
+                  <li>Write: “My Speech Standard” (10 lines).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Record one teaching (audio/video or written).</li>
+                  <li>Create a personal “Words of Power” script (short).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>What does my lineage sound like through my mouth?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- SECTION: TEHUTI -->
+    <section class="section" id="tehuti" data-section="tehuti">
+      <div class="sectionHead">
+        <div>
+          <h2>Pillar III — Infinite Wisdom (Tehuti)</h2>
+          <p>Weeks 11–15 • Study • Integration • Applied Intelligence</p>
+        </div>
+        <div class="progressRow">
+          <div class="bar"><i></i></div>
+          <div class="pct" data-pct>0%</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <!-- Week 11 -->
+        <details class="week" data-week="11">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">11</div>
+              <div>
+                <p class="wTitle">Wisdom vs Information</p>
+                <p class="wSub">Principles over quotes • Study as sacred labor • End intellectual laziness.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-11" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Choose 1 text or system to study consistently.</li>
+                  <li>Extract 3 principles (not just “facts”).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Write a 1-page “principle summary.”</li>
+                  <li>Apply one principle within 24 hours.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>What do I actually know well enough to live?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 12 -->
+        <details class="week" data-week="12">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">12</div>
+              <div>
+                <p class="wTitle">Ancestral Intelligence</p>
+                <p class="wSub">Beyond names • Systems + methods • Reverence → embodiment.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-12" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Research one ancestral system (Ifa/Khemet/diaspora).</li>
+                  <li>Identify what must be continued and what must be corrected.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Create a 5-bullet “Ancestral Intelligence” brief.</li>
+                  <li>Teach one insight to someone (or write it publicly).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>What am I doing that proves gratitude?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 13 -->
+        <details class="week" data-week="13">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">13</div>
+              <div>
+                <p class="wTitle">Comparative Thinking</p>
+                <p class="wSub">Patterns across systems • Avoid dogma • Disciplined synthesis.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-13" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Compare two systems: where do they agree in principle?</li>
+                  <li>Identify your personal “bias lenses.”</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Write a short comparative analysis (1 page or 3 minutes spoken).</li>
+                  <li>List 3 universal principles you can apply immediately.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>Can I unify without diluting?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 14 -->
+        <details class="week" data-week="14">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">14</div>
+              <div>
+                <p class="wTitle">Wisdom Applied to Life</p>
+                <p class="wSub">Health • Finances • Relationships • Leadership • Results matter.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-14" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Select 1 real-life problem to address with a principle.</li>
+                  <li>Identify the “one move” that changes momentum.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Apply the principle for 7 days.</li>
+                  <li>Document outcomes: what improved, what resisted, what changed.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>Does my wisdom show up in my lifestyle?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Week 15 -->
+        <details class="week" data-week="15">
+          <summary>
+            <div class="wLeft">
+              <div class="badge">15</div>
+              <div>
+                <p class="wTitle">Tehuti Integration</p>
+                <p class="wSub">Applied intelligence • Demonstrate results • Prepare legacy week.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-15" /> Completed</label>
+            </div>
+          </summary>
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Inner Work</h4>
+                <ul>
+                  <li>Review weeks 11–14 and summarize 5 principles you now live.</li>
+                  <li>Write: “My Wisdom Standard” (10 lines).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Outer Expression</h4>
+                <ul>
+                  <li>Deliver a final teach-back: devotion → speech → wisdom alignment.</li>
+                  <li>Create a simple plan for continued study (next 90 days).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Legacy Question</h4>
+                <p><strong>What will I be known for—knowledge or transformation?</strong></p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- WEEK 16: INTEGRATION + LEGACY -->
+    <section class="section" id="week16" data-section="week16">
+      <div class="sectionHead">
+        <div>
+          <h2>Week 16 — Integration & Legacy</h2>
+          <p>Extending Royal Legacy • Standing on the Shoulders of Enlightened Ancestors</p>
+        </div>
+        <div class="progressRow">
+          <div class="bar"><i></i></div>
+          <div class="pct" data-pct>0%</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <details class="week" data-week="16" open>
+          <summary>
+            <div class="wLeft">
+              <div class="badge">16</div>
+              <div>
+                <p class="wTitle">Crown + Continuity: Become an Ancestor Worth Standing On</p>
+                <p class="wSub">Synthesize pillars • Publish legacy • Commit to ongoing discipline.</p>
+              </div>
+            </div>
+            <div class="wRight">
+              <label class="checkMini"><input type="checkbox" data-check="week-16" /> Completed</label>
+            </div>
+          </summary>
+
+          <div class="content">
+            <div class="cols">
+              <div class="box">
+                <h4>Extending Royal Legacy</h4>
+                <ul>
+                  <li>Royalty = conduct + responsibility.</li>
+                  <li>Define what you’re building that outlives you.</li>
+                  <li>Create a structure: routine, archive, teaching, service.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Standing on Enlightened Ancestors</h4>
+                <ul>
+                  <li>Move from gratitude to continuation.</li>
+                  <li>Identify 3 ancestors (blood or spiritual) and their carried principles.</li>
+                  <li>Declare how you will refine and extend what they began.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Final Deliverables</h4>
+                <ul>
+                  <li><strong>Legacy Statement</strong> (1 page).</li>
+                  <li><strong>SGI Path Declaration</strong> (10 lines).</li>
+                  <li><strong>90-Day Continuation Plan</strong> (simple checklist).</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="hr"></div>
+            <p class="smallNote">
+              <strong>Course Outcome:</strong> Disciplined (Auset) • Conscious Speech (Sekert) • Applied Wisdom (Tehuti) • Legacy-Minded.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Footer Cards -->
+    <div class="footer">
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:16px;">Course Doctrine (One Line)</h3>
+        <p class="lede" style="margin:0">
+          <strong>We devote ourselves fully, speak with power, study without limits, extend royal legacy, and rise upon the foundations laid by enlightened ancestors.</strong>
+        </p>
+        <p class="smallNote">
+          This page is designed to be reused annually as a cohort tracker, an Iyawo formation map, or a priestly refinement cycle.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:16px;">Progress Summary</h3>
+        <p class="lede" style="margin:0 0 10px">
+          Your completion data is saved locally in your browser on this device.
+        </p>
+        <div class="kpi" style="margin-top:10px">
+          <p class="k">Overall Completion</p>
+          <p class="v"><strong id="overallPct">0%</strong></p>
+        </div>
+        <p class="smallNote">
+          If you open this file on another device/browser, it will start fresh.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function(){
+      const STORAGE_KEY = "sgi_16week_3pillars_v1";
+
+      const state = loadState();
+      const checks = Array.from(document.querySelectorAll('input[type="checkbox"][data-check]'));
+      const sections = Array.from(document.querySelectorAll('section.section[data-section]'));
+
+      // Initialize checkboxes from storage
+      checks.forEach(cb => {
+        const k = cb.getAttribute("data-check");
+        cb.checked = !!state[k];
+        cb.addEventListener("change", () => {
+          state[k] = cb.checked;
+          saveState(state);
+          updateAll();
+        });
+      });
+
+      // Expand/Collapse all
+      document.getElementById("expandAllBtn").addEventListener("click", () => {
+        document.querySelectorAll("details.week").forEach(d => d.open = true);
+      });
+      document.getElementById("collapseAllBtn").addEventListener("click", () => {
+        document.querySelectorAll("details.week").forEach(d => d.open = false);
+        // Keep week 16 open as the wrap-up anchor (optional)
+        const w16 = document.querySelector('details.week[data-week="16"]');
+        if (w16) w16.open = true;
+      });
+
+      // Reset
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        if(!confirm("Reset all week completion checkmarks on this device?")) return;
+        checks.forEach(cb => cb.checked = false);
+        for (const k in state) delete state[k];
+        saveState(state);
+        updateAll();
+      });
+
+      function updateAll(){
+        updateSectionProgress();
+        updateOverallProgress();
+      }
+
+      function updateSectionProgress(){
+        sections.forEach(sec => {
+          const weekCbs = Array.from(sec.querySelectorAll('input[type="checkbox"][data-check]'));
+          const total = weekCbs.length || 1;
+          const done = weekCbs.filter(x => x.checked).length;
+          const pct = Math.round((done / total) * 100);
+
+          const barFill = sec.querySelector(".bar > i");
+          const pctEl = sec.querySelector("[data-pct]");
+          if (barFill) barFill.style.width = pct + "%";
+          if (pctEl) pctEl.textContent = pct + "%";
+        });
+      }
+
+      function updateOverallProgress(){
+        // Only count week checkmarks (week-1 ... week-16)
+        const weekCbs = checks.filter(cb => /^week-\d+$/.test(cb.dataset.check));
+        const total = weekCbs.length || 1;
+        const done = weekCbs.filter(x => x.checked).length;
+        const pct = Math.round((done / total) * 100);
+        const out = document.getElementById("overallPct");
+        if(out) out.textContent = pct + "%";
+      }
+
+      function loadState(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : {};
+        }catch(e){
+          return {};
+        }
+      }
+      function saveState(obj){
+        try{
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+        }catch(e){}
+      }
+
+      // First render
+      updateAll();
+    })();
+  </script>
+</body>
+</html>
