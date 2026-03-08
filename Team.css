@@ -114,6 +114,8 @@
 .u-section-1-2 .u-text-1 {
   text-transform: uppercase;
   font-size: 6.875rem;
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
   margin: 423px 0 60px 317px;
 }
 
@@ -123,8 +125,6 @@
   }
 
   .u-section-1-2 .u-text-1 {
-    font-weight: 700;
-    font-family: "Playfair Display", serif;
     margin-left: 117px;
   }
 }
@@ -181,6 +181,8 @@
 .u-section-1-3 .u-text-1 {
   text-transform: uppercase;
   font-size: 6.875rem;
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
   margin: 423px 0 60px 328px;
 }
 
@@ -190,8 +192,6 @@
   }
 
   .u-section-1-3 .u-text-1 {
-    font-weight: 700;
-    font-family: "Playfair Display", serif;
     margin-left: 128px;
   }
 }
@@ -272,7 +272,7 @@
 }
 
 .u-section-2 .u-text-2 {
-  margin: 31px 0 0;
+  margin: 31px 1px 0;
 }
 
 @media (max-width: 1199px) {
@@ -294,6 +294,11 @@
 
   .u-section-2 .u-container-layout-2 {
     padding-right: 35px;
+  }
+
+  .u-section-2 .u-text-2 {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -1436,7 +1441,7 @@
   }
 
   .u-section-9 .u-btn-1 {
-    margin-top: -75px;
+    margin-top: 20px;
   }
 }
 

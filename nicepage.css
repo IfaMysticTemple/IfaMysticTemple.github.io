@@ -46140,11 +46140,8 @@ a.u-link.u-text-hover-color-var:hover {
 }
 
 .u-header .u-nav-1 {
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1rem;
-}
-
-.u-header .u-nav-link-2 {
   padding: 10px 20px;
 }
 
@@ -46163,7 +46160,7 @@ a.u-link.u-text-hover-color-var:hover {
   }
 
   .u-header .u-nav-1 {
-    letter-spacing: normal;
+    font-weight: 500;
   }
 }
 
